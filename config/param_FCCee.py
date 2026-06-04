@@ -5,10 +5,10 @@ eostest='/eos/experiment/fcc/hh/tests/testfile.lhe.gz'
 eostest_size=1312594
 
 #directories
-webbasedir="/eos/experiment/fcc/www/data/FCCee/"
-pubbasedir="/afs/cern.ch/work/f/fccsw/public/FCCDicts/"
-eosbaseinputdir="/eos/experiment/fcc/ee/generation/"
-eosbaseoutputdir="/eos/experiment/fcc/ee/generation/"
+webbasedir="/eos/experiment/fcc/ee/analyses_storage/Higgs_and_TOP/HiggsInvisible/lia/"
+pubbasedir="/eos/experiment/fcc/ee/analyses_storage/Higgs_and_TOP/HiggsInvisible/lia/FCCDicts/"
+eosbaseinputdir="/afs/cern.ch/work/l/lia/private/FCC/"
+eosbaseoutputdir="/eos/experiment/fcc/ee/analyses_storage/Higgs_and_TOP/HiggsInvisible/lia/generation/"
 
 #stat
 lhe_stat = webbasedir + "statlhe.html"
@@ -356,6 +356,12 @@ pythialist={
     'p8_ee_Zbb_ecm91_EvtGen_Bs2KstarKstar':['Z/Gamma* ecm=91.188GeV to bb','Bs to Kstar(Kpi) Kstar(Kpi)','','1.0','1.0','1.0'],
     'p8_ee_Zbb_ecm91_EvtGen_Bd2rhoKstar':['Z/Gamma* ecm=91.188GeV to bb','Bd to rho(pipi) Kstar(Kpi)','','1.0','1.0','1.0'],
 
+    #Higgs to Invisible study
+    # Z-->Hadrons 69.9%, Z to invisible 20.0%, 1.35899*0.699*0.2*2=0.379973604
+    #'p8_ee_ZZ_nunuqq_ecm240':['Z->nunu, Z->qq','Z->nunu, Z->qq','','0.379973604','1.0','1.0'],
+    #Pythia8 Cross-section: 1.006 pb
+    'p8_ee_ZZ_nunuqq_ecm240':['Z->nunu, Z->qq','Z->nunu, Z->qq','','1.006','1.0','1.0'],
+
 
 }
 
@@ -482,6 +488,7 @@ gridpacklist = {
     'wzp6_ee_ZZ_test_ecm240':['ZZ ecm=240 GeV','inclusive Z decays by Pythia','','1.11','1.0','1.0'],
 
     'wzp6_ee_nuenueZ_ecm240':['Z nue nuebar, W-exchange only','inclusive Z decays by Pythia','','3.3274e-2','1.0','1.0'],
+
 
 # for Higgs, sqrts = 365 GeV:
     'wzp6_ee_mumuH_ecm365':['mumuH ecm=365 GeV','inclusive Higgs decays','','4.185e-3','1.0','1.0'],
@@ -915,5 +922,28 @@ gridpacklist = {
     'wzp6_gaga_tautau_60_ecm365':['gammagamma to tautau, M(tautau) > 60 GeV, ecm=365 GeV','', '','1.5395','1.0','1.0'],
 
     'wzp6_ee_nuenueZ_ecm365':['Z nue nuebar, W- exchange only','Z inclusive', '','1.2624e-01','1.0','1.0'],
+
+    # Higgs to Invisible 0.106% BR
+    'wzp6_ee_mumuH_HZZ4nu_ecm240':['Higgs to invisible','Higgs decays to 4 neutrinos','','7.17015e-6','1.0','1.0'],
+    'wzp6_ee_nunuH_HZnunuZll_ecm240':['Higgs to invisible','Z-->nunu, H-->Z-->llvv','','7.17015e-6','1.0','1.0'],
+    'wzp6_ee_nunuH_HZZ_mumununu_ecm240':['Higgs to invisible','Z-->nunu, H-->ZZ-->mumununu','','8.14757e-6','1.0','1.0'],
+    'wzp6_ee_nunuH_HWW_munumunu_ecm240':['Higgs to invisible','Z-->nunu, H-->WW-->munumunu','','1.1231891e-4','1.0','1.0'],
+    #Higgs to Invisible study
+    # Z-->Hadrons 69.9%, Z to invisible 20.0%, 1.35899*0.699*0.2*2=0.379973604 
+    'wzp6_ee_ZZ_nunuqq_ecm240':['ZZ ecm=240 GeV','ZZ-->nunuqq','','0.379973604','1.0','1.0'],
+    'wzp6_ee_WW_lvqq_ecm240':['WW ecm=240GeV','WW-->lvqq','','16.4385','1.0','1.0'],
+    'wzp6_ee_WW_munumunu_ecm240':['WW ecm=240GeV','WW-->munumunu','','0.25792','1.0','1.0'],
+    'wzp6_ee_WW_enuenu_ecm240':['WW ecm=240GeV','WW-->enuenu','','0.25792','1.0','1.0'],
+    'wzp6_ee_WW_lvqq_ecm240_p6decay':['WW ecm=240GeV','WW-->lvqq','','16.4385','1.0','1.0'],
+    'wzp6_ee_WW_munumunu_ecm240_p6decay':['WW ecm=240GeV','WW-->munumunu','','0.25792','1.0','1.0'],
+    'wzp6_ee_WW_enuenu_ecm240_p6decay':['WW ecm=240GeV','WW-->enuenu','','0.25792','1.0','1.0'],
+    'wzp6_ee_WW_taunutaunu_ecm240_p6decay':['WW ecm=240GeV','WW-->taunutaunu','','0.25792','1.0','1.0'],
+    'wzp6_ee_tautau_mumu4nu_ecm240':['tautau ecm=240GeV','tautau-->mumu4nu','','0.1429575','1.0','1.0'],
+    'wzp6_ee_tautau_ee4nu_ecm240':['tautau ecm=240GeV','tautau-->ee4nu','','0.1429575','1.0','1.0'],
+
+    'wzp6_ee_WW_lvqq_ecm240_p6decay_test':['WW ecm=240GeV','WW-->lvqq','','16.4385','1.0','1.0'],
+    'wzp6_ee_WW_lvqq_ecm240_p6decay_test3':['WW ecm=240GeV','WW-->lvqq','','16.4385','1.0','1.0'],
+    'wzp6_ee_WW_lnuqq_ecm240_p6decay':['WW ecm=240GeV','W+->lnu, W--->qq','','16.4385','1.0','1.0'],
+    'wzp6_ee_WW_qqlnu_ecm240_p6decay':['WW ecm=240GeV','W-->lnu, W+-->qq','','16.4385','1.0','1.0'],
 }
 

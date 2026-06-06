@@ -129,7 +129,7 @@ class send_stdhep():
             #frun.write('mkdir %s\n'%(stdhepdir))
             if self.islocal==False:
                 frun.write('mkdir -p %s%s\n'%(stdhepdir,self.process))
-            frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py %s thecard.sin\n'%(whizardcard))
+            frun.write('cp %s thecard.sin\n'%(whizardcard))   # SDCC: local gpfs copy (was AFS eoscopy.py from EOS)
             #frun.write('cd process/\n')
             #frun.write('./run.sh %i %i\n'%(self.events,int(uid.lstrip('0'))))
             
@@ -142,8 +142,9 @@ class send_stdhep():
             frun.write('gzip proc.stdhep \n')
             #frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py events.lhe.gz %s/%s/events_%s.lhe.gz\n'%(lhedir,self.process ,uid))
             #frun.write('xrdcp -N -v proc.stdhep.gz root://eospublic.cern.ch/%s/%s/events_%s.lhe.gz\n'%(stdhepdir,self.process ,uid))
-            frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py proc.stdhep.gz %s\n'%(outfile))
-            frun.write('echo "stdhep.gz file successfully copied on eos"\n')
+            frun.write('mkdir -p $(dirname %s)\n'%(outfile))      # SDCC: ensure local output dir exists
+            frun.write('cp proc.stdhep.gz %s\n'%(outfile))        # SDCC: local gpfs copy (was AFS eoscopy.py to EOS)
+            frun.write('echo "stdhep.gz file successfully copied to %s"\n'%(outfile))
 
             frun.write('cd ..\n')
             #frun.write('rm -rf job%s_%s\n'%(uid,self.process))

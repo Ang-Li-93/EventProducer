@@ -5,10 +5,17 @@ eostest='/eos/experiment/fcc/hh/tests/testfile.lhe.gz'
 eostest_size=1312594
 
 #directories
-webbasedir="/eos/experiment/fcc/ee/analyses_storage/Higgs_and_TOP/HiggsInvisible/lia/"
-pubbasedir="/eos/experiment/fcc/ee/analyses_storage/Higgs_and_TOP/HiggsInvisible/lia/FCCDicts/"
-eosbaseinputdir="/afs/cern.ch/work/l/lia/private/FCC/"
-eosbaseoutputdir="/eos/experiment/fcc/ee/analyses_storage/Higgs_and_TOP/HiggsInvisible/lia/generation/"
+# --- SDCC (BNL) local paths for the MAPS production -----------------------
+# Redirected from CERN EOS/AFS to the local MAPS_storage area (group usfcc).
+# CERN originals kept below for reference / portability.
+#   webbasedir       ="/eos/experiment/fcc/www/data/FCCee/"
+#   pubbasedir       ="/afs/cern.ch/work/f/fccsw/public/FCCDicts/"
+#   eosbaseinputdir  ="/eos/experiment/fcc/ee/generation/"
+#   eosbaseoutputdir ="/eos/experiment/fcc/ee/generation/"
+webbasedir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/www/"
+pubbasedir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/FCCDicts/"
+eosbaseinputdir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/"
+eosbaseoutputdir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/generation/"
 
 #stat
 lhe_stat = webbasedir + "statlhe.html"
@@ -53,7 +60,9 @@ prodTag = {
     'winter2023_training':'/cvmfs/sw.hsf.org/spackages6/key4hep-stack/2022-12-23/x86_64-centos7-gcc11.2.0-opt/ll3gi/setup.sh',
 }
 
-defaultstack='/cvmfs/fcc.cern.ch/sw/latest/setup.sh'
+# SDCC: stable Key4hep (has WHIZARD 3.1.5; generation needs no local k4geo).
+# CERN original: defaultstack='/cvmfs/fcc.cern.ch/sw/latest/setup.sh'
+defaultstack='/cvmfs/sw.hsf.org/key4hep/setup.sh'
 
 ##eos directory for FCCSW pythia delphes files
 delphes_dir  = eosbaseoutputdir+"DelphesEvents/"

@@ -194,7 +194,9 @@ class send_stdhep():
             frun_condor.write('on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)\n')
             frun_condor.write('max_retries    = 3\n')
             frun_condor.write('+JobFlavour    = "%s"\n'%self.queue)
-            frun_condor.write('+AccountingGroup = "%s"\n'%self.priority)
+            # SDCC: modern accounting_group pair (builds group_usfcc.<user>); was +AccountingGroup
+            frun_condor.write('accounting_group      = %s\n'%self.priority)
+            frun_condor.write('accounting_group_user = %s\n'%os.getenv('USER'))
             frun_condor.write('RequestCpus = %s\n'%self.ncpus)
 
             frun_condor.write('queue filename matching files %s\n'%condor_file_str)

@@ -61,6 +61,13 @@ class send_fromstdhep():
             print ('delphes card does not exist: ',delphescards_base,' , exit')
             sys.exit(3)
 
+        # SDCC: edm4hep output tcl from the repo FCC-config (was hardcoded EOS path)
+        edm4hep_base = '%sedm4hep_%s.tcl'%(self.para.delphescards_dir,self.detector)
+        edm4hep_base = edm4hep_base.replace('_VERSION_',self.version)
+        if ut.file_exist(edm4hep_base)==False:
+            print ('edm4hep tcl does not exist: ',edm4hep_base,' , exit')
+            sys.exit(3)
+
         if self.islsf==False and self.iscondor==False and self.islocal==False:
             print ("Submit issue : LSF nor CONDOR not Local flag defined !!!")
             sys.exit(3)
@@ -216,7 +223,7 @@ class send_fromstdhep():
             frun.write('unset LD_LIBRARY_PATH\n')
             frun.write('unset PYTHONHOME\n')
             frun.write('unset PYTHONPATH\n')
-            frun.write('source %s\n'%(self.para.prodTag[self.version]))
+            frun.write('source %s\n'%(self.para.prodTag[self.version]))   # SDCC: winter2023 prodTag stack (el9 pre-edm4hep1 2024-03-10) so EDM4hep is readable by setup_hbs analysis
             frun.write('mkdir job%s_%s\n'%(jobid,self.process))
             frun.write('cd job%s_%s\n'%(jobid,self.process))
             frun.write('export EOS_MGM_URL=\"root://eospublic.cern.ch\"\n')
@@ -224,17 +231,18 @@ class send_fromstdhep():
             if self.islocal==False:
                 frun.write('mkdir -p %s/%s\n'%(outdir,self.process))
 
-            frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py %s .\n'%(tmpf['processing']['out']))
-            frun.write('gunzip -c %s > events.stdhep\n'%tmpf['processing']['out'].split('/')[-1])          
+            frun.write('cp %s .\n'%(tmpf['processing']['out']))   # SDCC: local gpfs copy (was AFS eoscopy from EOS)
+            frun.write('gunzip -c %s > events.stdhep\n'%tmpf['processing']['out'].split('/')[-1])
 
-            frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py %s card.tcl\n'%(delphescards_base))
-            frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py /eos/experiment/fcc/ee/generation/FCC-config/%s/FCCee/Delphes/edm4hep_%s.tcl edm4hep.tcl\n'%(self.version,self.detector))
+            frun.write('cp %s card.tcl\n'%(delphescards_base))    # SDCC: local gpfs copy
+            frun.write('cp %s edm4hep.tcl\n'%(edm4hep_base))      # SDCC: edm4hep tcl from repo FCC-config
 
 
             frun.write('DelphesSTDHEP_EDM4HEP card.tcl edm4hep.tcl  events_%s.root  events.stdhep \n'%(jobid))
 
 
-            frun.write('python /afs/cern.ch/work/f/fccsw/public/FCCutils/eoscopy.py events_%s.root %s\n'%(jobid,outfile))
+            frun.write('mkdir -p $(dirname %s)\n'%(outfile))      # SDCC: ensure local output dir exists
+            frun.write('cp events_%s.root %s\n'%(jobid,outfile))  # SDCC: local gpfs copy (was AFS eoscopy to EOS)
 
             frun.write('cd ..\n')
             frun.write('rm -rf job%s_%s\n'%(jobid,self.process))
@@ -275,7 +283,7 @@ class send_fromstdhep():
             frun_condor.write('Log            = %s/condor_job.%s.$(ClusterId).$(ProcId).log\n'%(logdir,str(jobid)))
             frun_condor.write('Output         = %s/condor_job.%s.$(ClusterId).$(ProcId).out\n'%(logdir,str(jobid)))
             frun_condor.write('Error          = %s/condor_job.%s.$(ClusterId).$(ProcId).error\n'%(logdir,str(jobid)))
-            frun_condor.write('getenv         = True\n')
+            frun_condor.write('getenv         = False\n')   # SDCC: clean worker env so the in-job key4hep source actually runs (getenv=True left it "already set up" w/o LD_LIBRARY_PATH -> podio dict missing -> segfault)
             frun_condor.write('environment    = "LS_SUBCWD=%s"\n'%logdir) # not sure
             #frun_condor.write('requirements   = ( (OpSysAndVer =?= "CentOS7") && (Machine =!= LastRemoteHost) )\n')
             #frun_condor.write('requirements   = ( (OpSysAndVer =?= "SLCern6") && (Machine =!= LastRemoteHost) )\n')
@@ -284,7 +292,9 @@ class send_fromstdhep():
             frun_condor.write('on_exit_remove = (ExitBySignal == False) && (ExitCode == 0)\n')
             frun_condor.write('max_retries    = 3\n')
             frun_condor.write('+JobFlavour    = "%s"\n'%self.queue)
-            frun_condor.write('+AccountingGroup = "%s"\n'%self.priority)
+            # SDCC: modern accounting_group pair (builds group_usfcc.<user>); was +AccountingGroup
+            frun_condor.write('accounting_group      = %s\n'%self.priority)
+            frun_condor.write('accounting_group_user = %s\n'%os.getenv('USER'))
             frun_condor.write('RequestCpus = %s\n'%self.ncpus)
 
             frun_condor.write('queue filename matching files %s\n'%condor_file_str)

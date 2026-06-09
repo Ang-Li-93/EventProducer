@@ -1,8 +1,11 @@
 #module
 module_name='config/param_FCCee.py'
 #eos tests
-eostest='/eos/experiment/fcc/hh/tests/testfile.lhe.gz'
-eostest_size=1312594
+# SDCC: storage health probe repointed from CERN EOS to a local MAPS_storage
+# sentinel (testeos() checks this file exists with the exact size below).
+# CERN original: eostest='/eos/experiment/fcc/hh/tests/testfile.lhe.gz'; eostest_size=1312594
+eostest='/gpfs/mnt/gpfs01/usfcc/MAPS_storage/tests/testfile.txt'
+eostest_size=66
 
 #directories
 # --- SDCC (BNL) local paths for the MAPS production -----------------------
@@ -16,6 +19,9 @@ webbasedir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/www/"
 pubbasedir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/FCCDicts/"
 eosbaseinputdir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/"
 eosbaseoutputdir="/gpfs/mnt/gpfs01/usfcc/MAPS_storage/generation/"
+# FCC-config generator/detector cards (and the THDM_QFV UFO) live in the repo
+# submodule, not MAPS_storage. _VERSION_ (e.g. winter2023) is the FCC-config tag.
+fccconfigdir="/gpfs/mnt/gpfs01/usfcc/ali3/FCCWorkplace/FCC-config/"
 
 #stat
 lhe_stat = webbasedir + "statlhe.html"
@@ -56,8 +62,11 @@ prodTag = {
     'dev':'/cvmfs/sw.hsf.org/key4hep/setup.sh' ,
     'pre_fall2022':'/cvmfs/fcc.cern.ch/sw/latest/setup.sh',
     'pre_fall2022_training':'/cvmfs/fcc.cern.ch/sw/latest/setup.sh',
-    'winter2023':'/cvmfs/sw.hsf.org/spackages6/key4hep-stack/2022-12-23/x86_64-centos7-gcc11.2.0-opt/ll3gi/setup.sh',
-    'winter2023_training':'/cvmfs/sw.hsf.org/spackages6/key4hep-stack/2022-12-23/x86_64-centos7-gcc11.2.0-opt/ll3gi/setup.sh',
+    # SDCC: el9-compatible pre-edm4hep1 stack (maintainer-recommended winter2023
+    # workaround; same as setup_hbs). CERN original was centos7 2022-12-23 (ll3gi),
+    # which won't run cleanly on the AlmaLinux9 workers.
+    'winter2023':'/cvmfs/sw.hsf.org/key4hep/setup.sh -r 2024-03-10',
+    'winter2023_training':'/cvmfs/sw.hsf.org/key4hep/setup.sh -r 2024-03-10',
 }
 
 # SDCC: stable Key4hep (has WHIZARD 3.1.5; generation needs no local k4geo).
@@ -73,15 +82,15 @@ treename     = "events"
 
 
 ##where the delphes cards are stored
-delphescards_dir = eosbaseinputdir+"FCC-config/_VERSION_/FCCee/Delphes/"
+delphescards_dir = fccconfigdir+"_VERSION_/FCCee/Delphes/"
 ##where the pythia cards are stored
-pythiacards_dir  = eosbaseinputdir+"FCC-config/_VERSION_/FCCee/Generator/Pythia8/"
+pythiacards_dir  = fccconfigdir+"_VERSION_/FCCee/Generator/Pythia8/"
 ##where the EVTGEN card are stored
-evtgencards_dir  = eosbaseinputdir+"FCC-config/_VERSION_/FCCee/Generator/EvtGen/"
+evtgencards_dir  = fccconfigdir+"_VERSION_/FCCee/Generator/EvtGen/"
 ##where the WHIZARD cards are stored
-whizardcards_dir = eosbaseinputdir+"FCC-config/_VERSION_/FCCee/Generator/Whizard/"
+whizardcards_dir = fccconfigdir+"_VERSION_/FCCee/Generator/Whizard/"
 ##where the KKMC cards are stored
-kkmccards_dir = eosbaseinputdir+"FCC-config/_VERSION_/FCCee/Generator/KKMC/"
+kkmccards_dir = fccconfigdir+"_VERSION_/FCCee/Generator/KKMC/"
 # /cvmfs/fcc.cern.ch/sw/latest/setup.sh 
 ##delphes base card detector
 detectors = ['IDEA', 'IDEA_3T', 'IDEA_FullSilicon']

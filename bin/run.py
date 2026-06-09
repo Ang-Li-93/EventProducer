@@ -34,7 +34,7 @@ if __name__=="__main__":
     sendjobGroup.add_argument('--typestdhep', type=str, required = '--send' in sys.argv and '--STDHEP'  in sys.argv , help='type of jobs to send', choices = ['wzp6'])
 
     sendjobGroup.add_argument('-q', '--queue', type=str, default='workday', help='lxbatch queue (default: workday for HTCONDOR)', choices=['1nh','8nh','1nd','2nd','1nw','espresso','microcentury','longlunch','workday','tomorrow','testmatch','nextweek'])
-    sendjobGroup.add_argument('--priority', type=str, default='group_u_FCC.local_gen', help='condor queue priority (default: group_u_FCC.local_gen)')
+    sendjobGroup.add_argument('--priority', type=str, default='group_usfcc', help='condor accounting_group (default: group_usfcc for SDCC; CERN was group_u_FCC.local_gen)')
     sendjobGroup.add_argument('--ncpus', type=str, default='1', help='number of CPUs (1CPU=2Gb of RAM)')
 
 #41873

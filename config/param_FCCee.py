@@ -618,6 +618,9 @@ gridpacklist = {
 
     'wzp6_ee_mumuH_Hbs_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to bs, Higgs width set to SM','','1.0','1.0','1.0'],
     'wzp6_ee_mumuH_Hbb_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to bb, Higgs width set to SM','','1.0','1.0','1.0'],
+    'wzp6_ee_mumuH_Hbd_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to bd, Higgs width set to SM','','1.0','1.0','1.0'],
+    'wzp6_ee_mumuH_Hsd_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to sd, Higgs width set to SM','','1.0','1.0','1.0'],
+    'wzp6_ee_mumuH_Hcu_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to cu, Higgs width set to SM','','1.0','1.0','1.0'],
 
 
     'wzp6_ee_tautauH_Hbb_ecm240':['ee -> Z(tau tau) H,  ecm=240 GeV','H to bb','','3.932e-03','1.0','1.0'],

@@ -602,6 +602,12 @@ gridpacklist = {
     'wzp6_ee_mumuH_Hbb_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to bb','','3.940e-03','1.0','1.0'],
     'wzp6_ee_mumuH_Hcc_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to cc','','1.956e-04','1.0','1.0'],
     'wzp6_ee_mumuH_Hss_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to ss','','1.624e-06','1.0','1.0'],
+    # xsec = sigma(ee->mumuH)=6.763e-3 pb (Whizard integral, this production) x BR(H->qq).
+    # PDG/LHCHWG do not tabulate H->uu/dd; BR(H->uu)~1.0e-7, BR(H->dd)~6.3e-7 from
+    # Gamma(H->qq) ~ m_q^2(m_H) scaled off the same-type neighbours (uu off Hcc, dd off
+    # Hss) -> ~factor-2 uncertain (light-quark masses dominate the uncertainty).
+    'wzp6_ee_mumuH_Huu_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to uu (forced Pythia6 decay)','','6.80e-10','1.0','1.0'],
+    'wzp6_ee_mumuH_Hdd_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to dd (forced Pythia6 decay)','','4.27e-09','1.0','1.0'],
     'wzp6_ee_mumuH_Hgg_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to gg','','5.538e-04','1.0','1.0'],
     'wzp6_ee_mumuH_Htautau_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to tautau','','4.243e-04','1.0','1.0'],
     'wzp6_ee_mumuH_Hmumu_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to mumu','','1.472e-06','1.0','1.0'],
@@ -622,6 +628,8 @@ gridpacklist = {
     'wzp6_ee_mumuH_Hsd_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to sd, Higgs width set to SM','','1.0','1.0','1.0'],
     'wzp6_ee_mumuH_Hcu_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to cu, Higgs width set to SM','','1.0','1.0','1.0'],
     'wzp6_ee_mumuH_Hbb_MEdecay_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to bb, decay in WHIZARD ME (resonance restriction)','','1.0','1.0','1.0'],
+
+    'wzp6_ee_mumuqq_ecm91p2':['ee -> mu mu q q,  ecm=91.2 GeV','llqq (mumu + uu/dd/ss/cc/bb)','','1.0','1.0','1.0'],
 
 
     'wzp6_ee_tautauH_Hbb_ecm240':['ee -> Z(tau tau) H,  ecm=240 GeV','H to bb','','3.932e-03','1.0','1.0'],

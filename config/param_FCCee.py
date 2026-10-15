@@ -629,7 +629,15 @@ gridpacklist = {
     'wzp6_ee_mumuH_Hcu_W4p1MeV_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to cu, Higgs width set to SM','','1.0','1.0','1.0'],
     'wzp6_ee_mumuH_Hbb_MEdecay_ecm240':['ee -> Z(mu mu) H,  ecm=240 GeV','H to bb, decay in WHIZARD ME (resonance restriction)','','1.0','1.0','1.0'],
 
+    # nunuH with QFV Higgs decays, SM on-shell ee->nunuH + Pythia6 flavour-violating decay
+    # (same recipe as the mumuH_*_W4p1MeV cards; only the Z decay differs). Placeholder xsec.
+    'wzp6_ee_nunuH_Hbs_W4p1MeV_ecm240':['ee -> Z(nu nu) H,  ecm=240 GeV','H to bs, Higgs width set to SM','','1.0','1.0','1.0'],
+    'wzp6_ee_nunuH_Hbd_W4p1MeV_ecm240':['ee -> Z(nu nu) H,  ecm=240 GeV','H to bd, Higgs width set to SM','','1.0','1.0','1.0'],
+    'wzp6_ee_nunuH_Hsd_W4p1MeV_ecm240':['ee -> Z(nu nu) H,  ecm=240 GeV','H to sd, Higgs width set to SM','','1.0','1.0','1.0'],
+    'wzp6_ee_nunuH_Hcu_W4p1MeV_ecm240':['ee -> Z(nu nu) H,  ecm=240 GeV','H to cu, Higgs width set to SM','','1.0','1.0','1.0'],
+
     'wzp6_ee_mumuqq_ecm91p2':['ee -> mu mu q q,  ecm=91.2 GeV','llqq (mumu + uu/dd/ss/cc/bb)','','1.0','1.0','1.0'],
+    'wzp6_ee_mumubb_ecm91p2':['ee -> mu mu b b,  ecm=91.2 GeV','llqq (mumu + bb only)','','4.158e-01','1.0','1.0'],
 
 
     'wzp6_ee_tautauH_Hbb_ecm240':['ee -> Z(tau tau) H,  ecm=240 GeV','H to bb','','3.932e-03','1.0','1.0'],

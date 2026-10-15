@@ -63,8 +63,17 @@ def SubmitToCondor(cmd,nbtrials,nsub):
         stderr=outputCMD["stderr"].split('\n')
         stdout=outputCMD["stdout"].split('\n') # -> dav : is it needed?
 
-        if len(stderr)==1 and stderr[0]=='' :
+        # HTCondor >= 25 writes a "To monitor your job(s), run: condor_watch_q ..."
+        # hint on stderr after every SUCCESSFUL submit, so an empty stderr is no
+        # longer a usable success criterion (it made every good submit look like
+        # a failure and re-submitted the same jobs nbtrials times). Success =
+        # condor_submit reported a cluster on stdout; keep the empty-stderr test
+        # only as a fallback for old versions.
+        stderr_real=[l for l in stderr if l.strip()!='' and not l.startswith('To monitor your job(s)')]
+        if 'submitted to cluster' in outputCMD["stdout"] or (len(stderr_real)==0 and len(stdout)>0):
             print ("------------GOOD SUB ",nsub)
+            for l in stdout:
+                if 'submitted to cluster' in l: print (l)
             submissionStatus=1
         else:
             print ("++++++++++++ERROR submitting, will retry")
